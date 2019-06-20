@@ -22,6 +22,7 @@ import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
 import android.webkit.JavascriptInterface;
+import android.webkit.PermissionRequest;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -716,6 +717,12 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
       }
       // Ignore console logs in non debug builds.
       return true;
+    }
+    
+    // Fix WebRTC permission request error.
+    @Override
+      public void onPermissionRequest(final PermissionRequest request) {
+        request.grant(request.getResources());
     }
 
     @Override
